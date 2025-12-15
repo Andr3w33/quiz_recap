@@ -1,0 +1,256 @@
+@import "tailwindcss";
+
+:root {
+  /* Backgrounds */
+  --bg0: #f6f7ff;      /* soft indigo tint */
+  --bg1: #f9fbff;      /* near-white */
+  --surface: rgba(255, 255, 255, 0.78); /* glass */
+  --surfaceSolid: #ffffff;
+
+  /* Text */
+  --text: #0b1220;     /* deep navy */
+  --muted: #5b6b86;    /* soft slate */
+
+  /* Colors (Quizlet-like pop) */
+  --primary: #5b5cff;  /* electric indigo */
+  --primary2: #7c3aed; /* violet */
+  --accent: #22c55e;   /* green */
+  --warn: #f59e0b;     /* amber */
+  --danger: #ef4444;   /* red */
+
+  /* Borders + shadows */
+  --border: rgba(120, 140, 200, 0.22);
+  --shadow: 0 18px 40px rgba(30, 45, 90, 0.10), 0 2px 10px rgba(15, 23, 42, 0.05);
+  --shadow2: 0 10px 25px rgba(30, 45, 90, 0.12);
+
+  --radius: 18px;
+}
+
+/* Dark mode: still Apple-ish */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg0: #070a14;
+    --bg1: #0b1020;
+    --surface: rgba(17, 24, 39, 0.70);
+    --surfaceSolid: #0f172a;
+
+    --text: #e5e7eb;
+    --muted: #aab2c3;
+
+    --primary: #7c83ff;
+    --primary2: #a78bfa;
+
+    --border: rgba(148, 163, 184, 0.18);
+    --shadow: 0 18px 40px rgba(0, 0, 0, 0.35), 0 2px 10px rgba(0, 0, 0, 0.25);
+    --shadow2: 0 10px 25px rgba(0, 0, 0, 0.35);
+  }
+}
+
+/* Base */
+html,
+body {
+  height: 100%;
+}
+
+body {
+  color: var(--text);
+  font-family: var(--font-sans);
+  line-height: 1.55;
+
+  /* Apple-ish soft gradient background */
+  background:
+    radial-gradient(1200px 700px at 20% -10%, rgba(91, 92, 255, 0.18), transparent 55%),
+    radial-gradient(900px 600px at 90% 10%, rgba(124, 58, 237, 0.14), transparent 55%),
+    radial-gradient(1000px 700px at 30% 110%, rgba(34, 197, 94, 0.10), transparent 55%),
+    linear-gradient(180deg, var(--bg0) 0%, var(--bg1) 100%);
+}
+
+/* Links */
+a {
+  color: color-mix(in srgb, var(--primary), var(--text) 10%);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+/* Selection */
+::selection {
+  background: color-mix(in srgb, var(--primary), transparent 75%);
+}
+
+/* =========================
+   Apple-ish “Glass” Surfaces
+   ========================= */
+.card,
+.card-solid {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.card {
+  background: var(--surface);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.card-solid {
+  background: var(--surfaceSolid);
+}
+
+/* Nice thin divider */
+.divider {
+  border-top: 1px solid var(--border);
+}
+
+/* Muted text helper */
+.text-muted {
+  color: var(--muted);
+}
+
+/* =========================
+   Buttons
+   ========================= */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1rem;
+  border-radius: 14px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  transition: transform 0.15s ease, filter 0.15s ease, box-shadow 0.15s ease;
+  user-select: none;
+}
+
+.btn:active {
+  transform: translateY(1px) scale(0.99);
+}
+
+.btn-primary {
+  color: white;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary2) 100%);
+  box-shadow: 0 10px 18px rgba(91, 92, 255, 0.20);
+}
+
+.btn-primary:hover {
+  filter: brightness(1.02);
+  box-shadow: 0 14px 28px rgba(91, 92, 255, 0.26);
+}
+
+.btn-danger {
+  color: white;
+  background: linear-gradient(135deg, #ef4444 0%, #fb7185 100%);
+}
+
+.btn-danger:hover {
+  filter: brightness(1.02);
+  box-shadow: 0 14px 28px rgba(239, 68, 68, 0.22);
+}
+
+/* (keeps the later btn-outline content without changing any values) */
+.btn-outline {
+  background: color-mix(in srgb, var(--surfaceSolid), transparent 20%);
+  border: 1px solid var(--border);
+  box-shadow: 0 8px 16px rgba(15, 23, 42, 0.06);
+}
+
+.btn-outline:hover {
+  filter: brightness(1.02);
+  box-shadow: 0 12px 22px rgba(15, 23, 42, 0.08);
+}
+
+.btn-outline {
+  color: black;
+  background: white;
+  border: 1px solid black;
+}
+
+.btn-outline:hover {
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.16);
+}
+
+/* Tiny pill tags */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--surfaceSolid), transparent 15%);
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+/* =========================
+   Inputs (Apple-ish focus ring)
+   ========================= */
+input,
+textarea {
+  background: color-mix(in srgb, var(--surfaceSolid), transparent 10%);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 0.65rem 0.85rem;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: color-mix(in srgb, var(--muted), transparent 10%);
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: color-mix(in srgb, var(--primary), white 10%);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--primary), transparent 78%);
+}
+
+/* =========================
+   Flashcard
+   ========================= */
+.flashcard {
+  border-radius: 22px;
+  border: 1px solid var(--border);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--surfaceSolid), transparent 10%) 0%,
+    color-mix(in srgb, var(--surfaceSolid), transparent 0%) 100%
+  );
+  box-shadow: var(--shadow2);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.flashcard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 38px rgba(30, 45, 90, 0.14);
+}
+
+.kbd {
+  font-size: 0.75rem;
+  padding: 0.12rem 0.4rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--surfaceSolid), transparent 10%);
+  color: var(--muted);
+}
+
+/* =========================
+   Subtle entrance animation
+   ========================= */
+@keyframes floatIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.float-in {
+  animation: floatIn 0.2s ease-out;
+}
