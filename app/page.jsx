@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import {Suspense} from "react";
 import ConfirmModal from "@/components/ConfirmModal";
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase/client";
