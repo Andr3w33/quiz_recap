@@ -5,6 +5,7 @@
   --------------
   Reusable modal for editing a flashcard
 */
+import { useEffect } from "react";
 
 export default function EditCardModal({
   open,
@@ -17,9 +18,22 @@ export default function EditCardModal({
   onCancel,
   onSave,
 }) {
+  // Close modal when user presses Escape
+  useEffect(() => {
+    if (!open) return;
+
+    function onKeyDown(e) {
+      if (e.key === "Escape") onCancel?.();
+      if (e.key === "Enter") onSave?.();
+    }
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [open, onCancel, onSave]);  
+  
   // Do not render anything if modal is closed
   if (!open) return null;
-
+  
   return (
     <div className="fixed inset-0 z-50">
       {/* Backdrop */}

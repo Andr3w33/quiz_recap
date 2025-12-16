@@ -1,7 +1,19 @@
+/* Author: Andrew Le
+Version: 0.10
+Date: December 15, 2025
+Note: (Future features/functionalities)
+  - Add navigation bar
+  - Add login/signup
+  - Add media input 
+  - Add a settings page
+  - Save test results after every user attemp
+  - Save a checkpoint for any test that any user doesn't finish
+  - AI feature?
+*/
+
 "use client";
 
 import Link from "next/link";
-import {Suspense} from "react";
 import ConfirmModal from "@/components/ConfirmModal";
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase/client";
@@ -57,9 +69,8 @@ export default function Home() {
       description: d || null,
     });
 
-    // If you also added the DB unique index, handle that error too
+    // If the title of the deck is duplicated
     if (error) {
-      // Postgres unique violation code = 23505
       if (error.code === "23505") {
         return setErr("That deck title already exists. Please choose a different title.");
       }
@@ -85,7 +96,7 @@ export default function Home() {
   }  
 
   return (
-    <main className="max-w-5xl mx-auto p-4 space-y-6">
+    <main className="max-w-5xl mx-auto p-4 space-y-6 float-in">
       <header className="flex items-center justify-between">
         <h1 className="text-3xl font-bold">Quiz Recap</h1>
       </header>
@@ -104,7 +115,7 @@ export default function Home() {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
-        <button className="rounded bg-black text-white px-4 py-2">
+        <button className="btn btn-primary px-4 py-2">
           Create
         </button>
         {err && <p className="text-sm text-red-600">{err}</p>}

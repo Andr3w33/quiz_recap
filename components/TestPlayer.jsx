@@ -32,31 +32,32 @@ export default function TestPlayer({ cards }) {
   const isChecked = !!record;            // whether current question already checked
   const isFirst = index === 0;
   const isLast = index === list.length - 1;
+  const allChecked = Object.keys(checked).length === list.length;
 
   function check() {
-    // ✅ Prevent re-scoring / re-checking
+    // Prevent re-scoring / re-checking
     if (isChecked) return;
 
     const ok = normalize(answer) === normalize(current.back);
     const msg = ok ? "Correct ✅" : `Incorrect ❌ (Answer: ${current.back})`;
 
-    // ✅ Save per-question data so it shows again when user navigates back
+    // Save per-question data so it shows again when user navigates back
     setChecked((prev) => ({
       ...prev,
       [index]: { answer, feedback: msg, correct: ok },
     }));
 
-    // ✅ Lock the UI for this question
+    // Lock the UI for this question
     setFeedback(msg);
 
-    // ✅ Score only once per question
+    // Score only once per question
     setScore((s) => ({
       correct: s.correct + (ok ? 1 : 0),
       incorrect: s.incorrect + (ok ? 0 : 1),
     }));
   }
 
-  // ✅ Centralized navigation: loads saved state when revisiting checked questions
+  // Centralized navigation: loads saved state when revisiting checked questions
   function goTo(newIndex) {
     setIndex(newIndex);
 
@@ -91,9 +92,9 @@ export default function TestPlayer({ cards }) {
         </div>
       </div>
 
-      <div className="border rounded-xl p-6">
+      <div key={index} className="flashcard w-full p-8 text-center float-in">
         <div className="text-xs uppercase tracking-wide text-slate-500 mb-2">
-          Prompt
+          Question
         </div>
 
         <div className="text-xl font-semibold whitespace-pre-wrap">
@@ -107,7 +108,7 @@ export default function TestPlayer({ cards }) {
             value={answer}
             onChange={(e) => setAnswer(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && check()}
-            disabled={isChecked} // ✅ Disable after checking
+            disabled={isChecked} // Disable after checking
           />
 
           <div className="flex gap-2 items-center">
@@ -121,7 +122,7 @@ export default function TestPlayer({ cards }) {
 
             <button
               onClick={check}
-              disabled={isChecked} // ✅ Prevent re-checking
+              disabled={isChecked} // Prevent re-checking
               className="btn btn-primary disabled:opacity-30"
             >
               {isChecked ? "Checked" : "Check"}
@@ -136,16 +137,16 @@ export default function TestPlayer({ cards }) {
             </button>
           </div>
 
-          {/* ✅ Feedback persists when going back to a checked question */}
+          {/* Feedback persists when going back to a checked question */}
           {feedback && <p className="text-sm mt-2">{feedback}</p>}
         </div>
       </div>
 
-      {isLast && (
-        <div className="border rounded p-4 bg-white">
+      {allChecked && (
+        <div className="border rounded p-4 bg-white float-in">
           <div className="font-semibold">Done!</div>
           <div className="text-slate-600 text-sm">
-            Score: {score.correct} correct, {score.incorrect} incorrect
+            Score: {score.correct} correct ✅, {score.incorrect} incorrect ❌
           </div>
         </div>
       )}

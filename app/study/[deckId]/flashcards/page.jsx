@@ -1,5 +1,14 @@
 "use client";
 
+/*
+  FlashcardPage
+  ----------
+  This page allows the user to:
+  - View/Interact with flashcards
+  - Shuffle mode
+  - Move to previous/next the flashcard
+*/
+
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
@@ -23,17 +32,19 @@ export default function FlashcardsPage() {
   }, [deckId]);
 
   return (
-    <main className="max-w-3xl mx-auto p-4 space-y-4">
+    <main className="max-w-3xl mx-auto p-4 space-y-4 float-in">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold">Flashcards — {deck?.title || ""}</h1>
-        <Link className="underline text-sm" href={`/decks/${deckId}`}>Back</Link>
+        <Link className="underline text-sm" href={`/decks/${deckId}`}>Edit</Link>
       </div>
 
       <div className="card p-4">
         <FlashcardPlayer cards={cards} />
       </div>
 
-      <Link className="underline text-sm" href={`/decks/${deckId}`}>Back</Link>
+      <Link href="/" className="underline text-sm">
+            Back to Dashboard
+      </Link>
     </main>
   );
 }

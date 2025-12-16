@@ -135,7 +135,7 @@ export default function DeckPage() {
   }
 
   return (
-    <main className="max-w-4xl mx-auto p-4 space-y-4">
+    <main className="max-w-4xl mx-auto p-4 space-y-4 float-in">
       {/* Deck header */}
       <div className="card p-5">
         <h1 className="text-3xl font-bold">{deck?.title || "Deck"}</h1>
@@ -146,6 +146,16 @@ export default function DeckPage() {
           <Link href="/" className="underline text-sm">
             Back to Dashboard
           </Link>
+
+          <div className="flex items-center gap-3">
+            <Link className="underline text-sm" href={`/study/${deckId}/flashcards`}>
+              Flashcards
+            </Link>
+
+            <Link className="underline text-sm" href={`/study/${deckId}/test`}>
+              Test
+            </Link>
+          </div>
         </div>
       </div>
 
@@ -216,12 +226,12 @@ export default function DeckPage() {
         )}
       </section>
 
-      {/* Footer navigation */}
+      {/* Footer navigation (Note: Check back later when adding navigation bar) */}
       <Link href="/" className="underline text-sm">
         Back to Dashboard
       </Link>
 
-      {/* ✅ EDIT MODAL (using your component) */}
+      {/* EDIT MODAL (note: using modal component) */}
       <EditCardModal
         open={!!editTarget}
         front={editFront}
@@ -236,13 +246,14 @@ export default function DeckPage() {
         }}
       />
 
-      {/* DELETE CONFIRM MODAL (reused) */}
+      {/* DELETE CONFIRM MODAL (note: using modal component) */}
       <ConfirmModal
         open={!!deleteCardTarget}
-        title="Delete flashcard?"
+        title="Delete this flashcard?"
         message={
           deleteCardTarget
-            ? `Are you sure you want to delete this card?\n\n"${deleteCardTarget.front}"`
+            ? `Are you sure you want to delete this card? 
+            "${deleteCardTarget.front}"`
             : ""
         }
         cancelText="Cancel"

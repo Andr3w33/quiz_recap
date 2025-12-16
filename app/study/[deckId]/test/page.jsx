@@ -29,7 +29,7 @@ export default function TestPage() {
         <Link className="underline text-sm" href={`/decks/${deckId}`}>Edit</Link>
       </div>
 
-      <div className="card p-4">
+      <div className="card float-in p-4">
         <TestPlayer cards={cards} />
       </div>
 

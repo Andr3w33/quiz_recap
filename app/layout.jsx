@@ -2,13 +2,13 @@ import "./globals.css";
 
 export const metadata = {
   title: "Quiz Recap",
-  description: "Simple Quizlet-style flashcards + test mode",
+  description: "A web application provides a platform for users to create their own flashcards or quizz with their studying resources",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="bg-slate-50 text-slate-900">{children}</body>
+      <body>{children}</body>
     </html>
   );
 }
